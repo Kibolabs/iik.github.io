@@ -1,6 +1,6 @@
-//import './style.css';
+import './style.css';
 import * as THREE from 'https://unpkg.com/three@0.127.0/build/three.module.js';
-import { OrbitControls } from 'node_modules/three/examples/jsm/controls/OrbitControls.js';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 // Setup
 
@@ -23,7 +23,7 @@ renderer.render(scene, camera);
 
 const geometry = new THREE.TorusGeometry(10, 3, 16, 20);
 const geometry1 = new THREE.SphereGeometry(10, 16, 16);
-const torusmesh = new THREE.TextureLoader().load('digitalk.webp')
+const torusmesh = new THREE.TextureLoader().load('moone.jpeg')
 const material = new THREE.MeshStandardMaterial({ color: 0xff6347 });
 const torus = new THREE.Mesh(geometry1, new THREE.MeshBasicMaterial({map:torusmesh}));
 
@@ -39,11 +39,11 @@ scene.add(pointLight, ambientLight);
 
 // Helpers
 
-// const lightHelper = new THREE.PointLightHelper(pointLight)
-// const gridHelper = new THREE.GridHelper(200, 50);
-// scene.add(lightHelper, gridHelper)
+ const lightHelper = new THREE.PointLightHelper(pointLight)
+ const gridHelper = new THREE.GridHelper(200, 50);
+ scene.add(lightHelper, gridHelper)
 
-// const controls = new OrbitControls(camera, renderer.domElement);
+const controls = new OrbitControls(camera, renderer.domElement);
 
 function addStar() {
   const geometry = new THREE.SphereGeometry(0.25, 24, 24);
@@ -62,20 +62,20 @@ Array(200).fill().forEach(addStar);
 
 // Background
 
-const spaceTexture = new THREE.TextureLoader().load('space.jpeg');
+const spaceTexture = new THREE.TextureLoader().load('nebula.jpg');
 scene.background = spaceTexture;
 
 // Avatar
 
 const leniface = new THREE.TextureLoader().load('ilen.jpg');
 
-const jeff = new THREE.Mesh(new THREE.BoxGeometry(3, 3, 3), new THREE.MeshBasicMaterial({ map: leniface }));
+const len = new THREE.Mesh(new THREE.BoxGeometry(3, 3, 3), new THREE.MeshBasicMaterial({ map: leniface }));
 
-scene.add(jeff);
+scene.add(len);
 
 // Moon
 
-const moonTexture = new THREE.TextureLoader().load('moone.jpeg');
+const moonTexture = new THREE.TextureLoader().load('SPC.jpg');
 const normalTexture = new THREE.TextureLoader().load('ilen.jpg');
 
 const moon = new THREE.Mesh(
@@ -91,8 +91,8 @@ scene.add(moon);
 moon.position.z = 30;
 moon.position.setX(-10);
 
-jeff.position.z = -5;
-jeff.position.x = 2;
+len.position.z = -3;
+len.position.x = 2;
 
 // Scroll Animation
 
@@ -102,8 +102,9 @@ function moveCamera() {
   moon.rotation.y += 0.075;
   moon.rotation.z += 0.05;
 
-  jeff.rotation.y += 0.01;
-  jeff.rotation.z += 0.01;
+  len.rotation.y += 0.01;
+  len.rotation.z += 0.01;
+  //len.rotation.x += 0.01;
 
   camera.position.z = t * -0.01;
   camera.position.x = t * -0.0002;
